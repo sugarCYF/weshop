@@ -35,6 +35,9 @@ Route::middleware([
     Route::any('updatemyself','PersonController@updatemyself');
     //收藏商品
     Route::get('collection','PersonController@collection');
+    //领取优惠券
+    Route::get('getdiscount','PersonController@getdiscount');
+
 });
 //前台主页
 Route::get("","IndexController@index");
@@ -52,6 +55,11 @@ Route::get('goodsdetail','GoodslistController@detail');
 Route::get('getaddr','AddrController@getdata');
 //搜索商品
 Route::get('seargoodslist','GoodslistController@searlist');
+//收藏
+Route::get('addcollect','GoodslistController@collect');
+//取消收藏
+Route::get('delcollect','GoodslistController@delcollect');
+
 
 
 
@@ -256,44 +264,6 @@ Route::middleware([
 /**
  * caoyuefeng的属性组
  */
-
-
-
-
-//订单
-Route::any('admin/orderDel',"Admin\OrderController@orderDel");
-
-Route::any('admin/orderList',"Admin\OrderController@orderList")->middleware('check.module');
-Route::any('admin/orderDelall',"Admin\OrderController@orderDelall")->middleware('check.module');
-Route::any('admin/orderDesc',"Admin\OrderController@orderDesc")->middleware('check.module');
-//用户意见
-Route::any('admin/opinionDelall',"Admin\OpinionController@opinionDelall")->middleware('check.module');
-Route::any('admin/opinionDesc','Admin\OpinionController@opinionDesc')->middleware('check.module');
-Route::any('admin/isokAll','Admin\OpinionController@isokAll')->middleware('check.module');
-
-
-//订单
-Route::any('admin/orderList',"Admin\OrderController@orderList");
-Route::any('admin/orderDel',"Admin\OrderController@orderDel");
-Route::any('admin/orderDelall',"Admin\OrderController@orderDelall");
-Route::any('admin/orderDesc',"Admin\OrderController@orderDesc");
-
-//用户意见
-
-Route::any("admin/opinionList","Admin\OpinionController@opinionList")->middleware('check.module');
-
-
-Route::any("admin/opinionList","Admin\OpinionController@opinionList");
-
-
-
-
-
-
-
-Route::any("admin/opinionList","Admin\OpinionController@opinionList")->middleware('check.module');
-
-
 Route::middleware([
     'admin.login',
     'check.module'
@@ -303,7 +273,7 @@ Route::middleware([
     Route::any('admin/orderList',"Admin\OrderController@orderList");
     Route::any('admin/orderDelall',"Admin\OrderController@orderDelall");
     Route::any('admin/orderDesc',"Admin\OrderController@orderDesc");
-//用户意见
+    //用户意见
     Route::any('admin/opinionDelall',"Admin\OpinionController@opinionDelall");
     Route::any('admin/opinionDesc','Admin\OpinionController@opinionDesc');
     Route::any('admin/isokAll','Admin\OpinionController@isokAll');
@@ -327,7 +297,6 @@ Route::middleware([
 //品牌展示
     Route::any("admin/brandallow","Admin\BrandController@allow");
 });
-
 Route::any('shopping','Auth\ShoppingCartController@shopping');
 Route::any('shopcar/cardel','Auth\ShoppingCartController@cardel');
 Route::any('shocar/carchange','Auth\ShoppingCartController@carchange');

@@ -9,18 +9,22 @@ class ShoppingCartController extends Controller
 {
     public function shopping()
     {
-//        $session = request()->session()->get('thisUser');
-        $uid = 1;
+        $session = request()->session()->get('thisUser');
+        $uid = $session['data']['uid'];
+
         $carList = Db::table('shoppingcar')
                     ->leftJoin('goods','shoppingcar.goods_id','=','goods.goods_id')
                     ->where('uid','=',"$uid")
                     ->get();
+
         $count = 0;
         foreach ($carList as $v){
             $count += $v->num;
         }
-        return view('index/shoppindcart/shopping',['carList' => $carList , 'count' => $count]);
+
+        return view('index/shoppindcart/shopping',['carList' => $carList , 'count' => $count ,'thisUser' => $session['data']]);
     }
+
     public function cardel()
     {
         $id = [$_GET['id']];
@@ -31,6 +35,7 @@ class ShoppingCartController extends Controller
             echo json_encode(['msg' => 0]);
         }
     }
+
     public function carchange()
     {
         $id = $_GET['id'];
@@ -42,4 +47,6 @@ class ShoppingCartController extends Controller
             echo json_encode(['msg' => 0]);
         }
     }
+
+
 }
