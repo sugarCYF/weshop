@@ -48,5 +48,12 @@ class ShoppingCartController extends Controller
         }
     }
 
+    public function pay()
+    {
+        $session = request()->session()->get('thisUser');
+        $uid = $session['data']['uid'];
 
+        $ids = $_GET['ids'];
+        Db::table('shoppingcar')->where('uid','=',"$uid")->whereIn('carid',$ids)->get();
+    }
 }

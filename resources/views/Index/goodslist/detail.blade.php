@@ -83,7 +83,7 @@
 			{{--</div>--}}
 			<div class="xiadan ml20 mt20">
 					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购" />
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+					<input class="jrgwc" type="button" name="jrgwc" data-goods_id="{{$goodsDetail->goods_id}}" value="加入购物车" />
 					<input class="jrgwc" type="button" name="shoucang" data-goods_id="{{$goodsDetail->goods_id}}" data-goods_img="{{$goodsDetail->goods_img}}" value="收藏此商品" />
 
 			</div>
@@ -122,5 +122,16 @@
 
 
     });
-
+	$("input[name='jrgwc']").click(function () {
+		var goods_id = $(this).attr('data-goods_id');
+		$.ajax({
+			url:'addshopcar',
+			data:{goods_id:goods_id},
+			type:'get',
+			dataType:'json',
+			success:function(e){
+				alert(e.msg);
+			}
+		})
+	})
 </script>

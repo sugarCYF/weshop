@@ -59,6 +59,8 @@ Route::get('seargoodslist','GoodslistController@searlist');
 Route::get('addcollect','GoodslistController@collect');
 //取消收藏
 Route::get('delcollect','GoodslistController@delcollect');
+//添加购物车
+Route::any('addshopcar','GoodslistController@addshopcar');
 
 
 
@@ -300,3 +302,4 @@ Route::middleware([
 Route::any('shopping','Auth\ShoppingCartController@shopping');
 Route::any('shopcar/cardel','Auth\ShoppingCartController@cardel');
 Route::any('shocar/carchange','Auth\ShoppingCartController@carchange');
+Route::any('shopcar/pay','Auth\ShoppingCartController@pay');

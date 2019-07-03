@@ -154,4 +154,33 @@
 		$('#money').text(money+'元');
 		$('#num').text(num)
 	}
+	$('input[name="jiesuan"]').click(function(){
+		var ids = [];
+		$('.quanxuan').each(function () {
+			if($(this).val() != 'quanxuan'){
+				if($(this).prop('checked')){
+					ids.push($(this).val())
+				}
+			}
+		})
+		$.ajax({
+			url:'shopcar/pay',
+			type:'GET',
+			dataType:'json',
+			data:{ids:ids},
+			success:function(msg){
+				if(msg.msg == 1){
+					$('.quanxuan').each(function () {
+						if($(this).val() != 'quanxuan'){
+							if($(this).prop('checked')){
+								$(this).parent().parent().remove();
+							}
+						}
+					})
+				}else{
+					history.go(0);
+				}
+			}
+		})
+	})
 </script>

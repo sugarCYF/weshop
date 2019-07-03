@@ -137,6 +137,27 @@ class GoodslistController extends Controller
 
     }
 
+    public function addshopcar(Request $request)
+    {
+        $goods_id = $request->get('goods_id');
+
+        $userinfo = $request->session()->get('thisUser');
+
+        $uid = $userinfo['data']['uid'];
+
+        $ishave = Db::table('shoppingcar')->where('uid','=',"$uid")->where('goods_id','=',"$goods_id")->get();
+        if($ishave){
+            $res = Db::table('shoppingcar')->where('uid','=',"$uid")->where('goods_id','=',"$goods_id")->increment('num');
+        }else{
+            $res = Db::table('shoppingcar')->insert(['uid' => $uid , 'goods_id' => $goods_id , 'num' => 1]);
+        }
+        if($res){
+            return json_encode(['code'=>'1','msg'=>'添加成功'], true);
+        }else{
+            return json_encode(['code'=>'3','msg'=>'错误'], true);
+        }
+    }
+
     public function delcollect(Request $request)
     {
 
